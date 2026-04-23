@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="NetCart.ConsoleUI/NetCart.ConsoleUI.csproj" />
+  <Project Path="NetCart.Core/NetCart.Core.csproj" />
+</Solution>
