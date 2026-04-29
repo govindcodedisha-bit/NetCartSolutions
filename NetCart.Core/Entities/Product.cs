@@ -136,19 +136,6 @@ public abstract class Product
     }
 
     /// <summary>
-    /// Updates product information
-    /// </summary>
-    public void UpdateDetails(string name, string description)
-    {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Product name is required", nameof(name));
-
-        Name = name;
-        Description = description ?? string.Empty;
-        UpdatedAt = DateTime.Now;
-    }
-
-    /// <summary>
     /// Updates product price
     /// </summary>
     public void UpdatePrice(decimal newPrice)
@@ -245,5 +232,71 @@ public abstract class Product
         UpdatedAt = DateTime.UtcNow;
     }
 
-    protected internal string Display() => "Display from protected internal";
+    /// <summary>
+    /// Updates the product image
+    /// </summary>
+    public void UpdateImage(string? imageUrl)
+    {
+        ImageUrl = imageUrl;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// Updates product weight (for shipping calculation)
+    /// </summary>
+    public void UpdateWeight(decimal? weight)
+    {
+        if (weight.HasValue && weight.Value < 0)
+            throw new ArgumentException("Weight cannot be negative");
+
+        Weight = weight;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// Sets or updates the product rating
+    /// </summary>
+    public void UpdateRating(decimal rating)
+    {
+        if (rating < 0 || rating > 5)
+            throw new ArgumentException("Rating must be between 0 and 5");
+
+        Rating = rating;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// Marks product as featured
+    /// </summary>
+    public void SetAsFeatured()
+    {
+        IsFeatured = true;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// Removes featured status
+    /// </summary>
+    public void RemoveFromFeatured()
+    {
+        IsFeatured = false;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// Checks if product is available for purchase
+    /// </summary>
+    public bool IsAvailable()
+    {
+        return Status == ProductStatus.Active && StockQuantity > 0;
+    }
+
+    /// <summary>
+    /// Checks if product is low on stock
+    /// </summary>
+    public bool IsLowStock()
+    {
+        return StockStatus == StockStatus.LowStock;
+    }
+
 }

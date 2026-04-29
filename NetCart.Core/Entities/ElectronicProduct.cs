@@ -1,13 +1,13 @@
-﻿using NetCart.Core.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace NetCart.Core
+namespace NetCart.Core.Entities
 {
     public class ElectronicProduct : Product
     {
+
         public string Brand { get; set; }
         public string ModelNumber { get; set; }
         public int ManifacturingYear { get; set; }
@@ -18,12 +18,6 @@ namespace NetCart.Core
             this.Brand = brandName;
             this.ModelNumber = modelNumber;
             this.ManifacturingYear = manifacturingYear;
-            Display();
         }
-
-
-
-
-
     }
 }
